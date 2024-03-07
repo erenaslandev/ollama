@@ -7,6 +7,7 @@
 set -ex
 set -o pipefail
 echo "Starting darwin generate script"
+JOB_COUNT=$(sysctl -n hw.physicalcpu_max || echo "8")
 source $(dirname $0)/gen_common.sh
 init_vars
 git_module_setup

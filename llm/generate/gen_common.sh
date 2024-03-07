@@ -42,6 +42,7 @@ init_vars() {
     if [ -z "${CMAKE_CUDA_ARCHITECTURES}" ] ; then 
         CMAKE_CUDA_ARCHITECTURES="50;52;61;70;75;80"
     fi
+    JOB_COUNT=${JOB_COUNT:-"8"}
 }
 
 git_module_setup() {
@@ -84,7 +85,7 @@ apply_patches() {
 
 build() {
     cmake -S ${LLAMACPP_DIR} -B ${BUILD_DIR} ${CMAKE_DEFS}
-    cmake --build ${BUILD_DIR} ${CMAKE_TARGETS} -j8
+    cmake --build ${BUILD_DIR} ${CMAKE_TARGETS} -j${JOB_COUNT}
     mkdir -p ${BUILD_DIR}/lib/
     g++ -fPIC -g -shared -o ${BUILD_DIR}/lib/libext_server.${LIB_EXT} \
         ${GCC_ARCH} \

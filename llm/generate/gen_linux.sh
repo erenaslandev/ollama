@@ -40,6 +40,7 @@ amdGPUs() {
 }
 
 echo "Starting linux generate script"
+JOB_COUNT=$(nproc || echo "8")
 if [ -z "${CUDACXX}" ]; then
     if [ -x /usr/local/cuda/bin/nvcc ]; then
         export CUDACXX=/usr/local/cuda/bin/nvcc
